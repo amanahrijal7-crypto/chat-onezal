@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#050914">
+  <title>Chat.onezal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="authGate" class="auth-gate">
+  <div class="auth-card">
+    <img class="auth-banner" src="assets/onezal-banner.png" alt="ONEZAL">
+    <div class="auth-mark"><img src="assets/onezal-small.png" alt="ONEZAL logo"></div>
+    <div class="auth-heading">CHAT.ONEZAL</div>
+    <p class="auth-caption">Buat akun atau masuk untuk melanjutkan</p>
+    <form id="authForm">
+      <label>USERNAME</label><input id="authUsername" autocomplete="username" placeholder="Buat username" required maxlength="22">
+      <label>PASSWORD</label><input id="authPassword" type="password" autocomplete="new-password" placeholder="Buat password" required>
+      <label class="bot-check"><input type="checkbox" id="botCheck"> <span>Saya bukan bot</span></label>
+      <button class="auth-submit" type="submit">KONFIRMASI BOT & LANJUT</button>
+      <small id="authError" class="auth-error"></small>
+    </form>
+    <p class="auth-hint">Akun demo khusus: username <b>Rijal</b> · password <b>221101</b></p>
+  </div>
+</div>
+<div id="welcomeVideo" class="welcome-video hide">
+  <button id="skipWelcome" type="button">SKIP ›</button>
+  <video id="welcomeClip" playsinline muted preload="auto">
+    <source src="assets/welcome-animation.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="app-shell login-locked">
+  <header class="topbar">
+    <div><div class="brand">Chat<span>.</span>onezal</div><div class="online"><i></i> Ruang obrolan online</div></div>
+    <button class="icon-btn" id="topProfile" aria-label="Profil">◉</button>
+  </header>
+
+  <main>
+    <section class="page active" id="page-chat">
+      <div class="search-wrap"><span>⌕</span><input id="userSearch" placeholder="Cari username......."><button id="clearSearch">×</button></div>
+      <div id="searchResults" class="search-results hidden"></div>
+      <div class="section-label">CHAT</div>
+      <button class="chat-row group-row" id="openGroup">
+        <img class="avatar group-avatar" src="assets/logo-onezal.jpg" alt="Logo ONEZAL"><div class="chat-info"><b>ChatGlobalonezal</b><small>Semua pengguna dapat bergabung</small></div><span class="chevron">›</span>
+      </button>
+      <div class="section-label">PESAN TERAKHIR</div>
+      <div id="chatList"></div>
+      <div class="empty" id="chatEmpty">Belum ada chat pribadi.<br>Cari username untuk mulai mengobrol.</div>
+    </section>
+
+    <section class="page" id="page-calls">
+      <div class="empty call-empty"><div class="empty-icon">☎</div><small>Belum ada riwayat</small></div>
+    </section>
+
+    <section class="page" id="page-status">
+      <div class="status-head">
+        <div class="section-label">STATUS</div>
+        <button class="my-status" id="addStatus"><img class="avatar" id="myStatusAvatar" src="assets/onezal-small.png" alt="Foto profil"><span><b>Status saya</b><small>Ketuk untuk membagikan foto</small></span></button>
+      </div>
+      <div class="section-label">PEMBARUAN TERBARU</div>
+      <div id="statusList"></div>
+      <div class="empty" id="statusEmpty">Belum ada status. Jadilah yang pertama berbagi.</div>
+    </section>
+
+    <section class="page" id="page-settings">
+      <div class="profile-card">
+        <button class="avatar big-avatar" id="profileUpload"><img id="profileImage" alt="" hidden><span id="profileFallback">◯</span></button>
+        <h2 id="myUsername">@pengguna</h2><p id="myNumber">6280000000000</p>
+        <button class="outline-btn" id="editUsername">Ubah username</button>
+      </div>
+      <div class="settings-list">
+        <button class="setting-row" id="changeTheme"><span>◐</span><div><b>Ubah latar tema</b><small>Warna tema seluruh aplikasi</small></div><strong>›</strong></button>
+        <button class="setting-row" id="changeWallpaper"><span>▧</span><div><b>Ubah latar belakang</b><small>Foto latar chat</small></div><strong>›</strong></button>
+        <div class="setting-row"><span>🔒</span><div><b>Privasi</b><small>Jangan bagikan nomor telepon asli</small></div></div>
+        <div class="setting-row"><span>ℹ</span><div><b>Tentang Chat.onezal</b><small>Versi 1.0</small></div></div>
+      </div>
+      <p class="footnote">Nomor 628 yang ditampilkan adalah ID acak aplikasi, bukan nomor telepon untuk dihubungi.</p>
+    </section>
+
+    <section class="page" id="page-conversation">
+      <div class="conversation-head">
+        <button class="back-btn" id="backChats">‹</button><img class="avatar small-avatar" id="conversationAvatar" src="assets/logo-onezal.jpg" alt="Profil">
+        <div class="chat-info"><b id="conversationName">Chat Group ONEZAL</b><small id="conversationSub">Grup publik</small></div>
+        <button class="icon-btn" id="conversationMenu">⋮</button>
+      </div>
+      <div class="conversation-actions hidden" id="friendActions"><button id="addFriend">Tambah teman</button><button id="addChat">Tambah chat</button></div>
+      <div class="messages" id="messages"></div>
+      <form class="composer" id="messageForm"><button type="button" class="attach-btn" id="attachPhoto">＋</button><input id="messageInput" placeholder="Tulis pesan..." autocomplete="off"><button class="send-btn" type="submit">➤</button></form>
+    </section>
+    <section class="page" id="page-about"><div class="about-card"><img src="assets/logo-onezal.jpg" alt="ONEZAL"><h2>Tentang v1</h2><p>Web/apk ini resmi dibuat oleh ONEZAL asli dan ini belum semua penuh dan masih bagus bantu support web/apk ini yaa.</p></div></section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-item active" data-page="chat"><span>💬</span><small>Chat</small></button>
+    <button class="nav-item" data-page="calls"><span>📞</span><small>Panggil</small></button>
+    <button class="nav-item" data-page="status"><span>🌐</span><small>Status</small></button>
+    <button class="nav-item" data-page="settings"><span>⚙️</span><small>Seting</small></button>
+    <button class="nav-item" data-page="about"><span>⚠️</span><small>Tentang v1</small></button>
+  </nav>
+</div>
+
+<div class="modal hidden" id="modal"><div class="modal-card"><button class="modal-close" id="closeModal">×</button><h3 id="modalTitle">Pengaturan</h3><div id="modalBody"></div></div></div>
+<input type="file" id="imagePicker" accept="image/*,video/*" hidden>
+<div class="toast" id="toast"></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
